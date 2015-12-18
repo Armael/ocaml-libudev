@@ -246,14 +246,7 @@ module Monitor : sig
   *)
   val create : ?source:netlink_source -> Context.t -> t
     
-  (** The context to which a monitor is bound. *)
-  val context : t -> Context.t
-
-  (** Set the receive buffer size, in bytes. *)
-  val set_receive_buffer_size : t -> int -> unit
-
-  (** Return the file descriptor associated with the monitor. *)
-  val fd : t -> Unix.file_descr
+  (** {1 Filtering & listening for devices} *)
 
   (** Filter the devices that are listened by a monitor. *)
   val set_filter : t -> filter list -> unit
@@ -275,6 +268,18 @@ module Monitor : sig
       and will never block.
   *)
   val receive_device : ?timeout:float -> t -> Device.t
+
+  (** {1 Utilities} *)
+  
+  (** The context to which a monitor is bound. *)
+  val context : t -> Context.t
+
+  (** Set the receive buffer size, in bytes. *)
+  val set_receive_buffer_size : t -> int -> unit
+
+  (** Return the file descriptor associated with the monitor. *)
+  val fd : t -> Unix.file_descr
+
 end
 
 (** Device enumeration and filtering. *)
