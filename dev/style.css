@@ -88,6 +88,7 @@ a:hover { text-decoration : underline }
 .string { color : brown }
 .warning { color : red ; font-weight : bold }
 .typefieldcomment { padding-bottom: 0.7em; }
+.varianttable td:nth-child(n+2) { width: 100%; }
 
 /* Functors */
 

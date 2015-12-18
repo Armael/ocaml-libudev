@@ -29,14 +29,14 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
       values.<br>
 </div>
 
-<table class="typetable">
+<table class="typetable varianttable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword pipe">|</span></code></td>
 <td align="left" valign="top" >
 <code><span id="TYPEELTfilter.Subsystem"><span class="constructor">Subsystem</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
 <tr>
-<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
 <code class="code"><span class="constructor">Subsystem</span> subsystem</code> matches devices that are part of <code class="code">subsystem</code>.<br>
 </div>
 </td>
@@ -47,7 +47,7 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
 <td align="left" valign="top" >
 <code><span id="TYPEELTfilter.NoSubsystem"><span class="constructor">NoSubsystem</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
 <tr>
-<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
 <code class="code"><span class="constructor">NoSubsystem</span> subsystem</code> matches devices that are not part of
         <code class="code">subsystem</code>.<br>
 </div>
@@ -59,7 +59,7 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
 <td align="left" valign="top" >
 <code><span id="TYPEELTfilter.Sysattr"><span class="constructor">Sysattr</span></span> <span class="keyword">of</span> <code class="type">string * string</code></code></td></tr>
 <tr>
-<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
 <code class="code"><span class="constructor">Sysattr</span> (attribute, value)</code> matches devices whose <code class="code">attribute</code> has the
         given <code class="code">value</code>.<br>
 </div>
@@ -71,7 +71,7 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
 <td align="left" valign="top" >
 <code><span id="TYPEELTfilter.NoSysattr"><span class="constructor">NoSysattr</span></span> <span class="keyword">of</span> <code class="type">string * string</code></code></td></tr>
 <tr>
-<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
 <code class="code"><span class="constructor">Sysattr</span> (attribute, value)</code> matches devices whose <code class="code">attribute</code> doesn't
         have the given <code class="code">value</code>. Devices that do not have <code class="code">attribute</code> at all are
         also included.<br>
@@ -84,7 +84,7 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
 <td align="left" valign="top" >
 <code><span id="TYPEELTfilter.Property"><span class="constructor">Property</span></span> <span class="keyword">of</span> <code class="type">string * string</code></code></td></tr>
 <tr>
-<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
 <code class="code"><span class="constructor">Property</span> (prop, value)</code> matches devices whose <code class="code">prop</code> has the given
         <code class="code">value</code>.<br>
 </div>
@@ -96,7 +96,7 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
 <td align="left" valign="top" >
 <code><span id="TYPEELTfilter.Sysname"><span class="constructor">Sysname</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
 <tr>
-<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
 <code class="code"><span class="constructor">Sysname</span> name</code> matches devices with the given <code class="code">name</code>.<br>
 </div>
 </td>
@@ -107,7 +107,7 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
 <td align="left" valign="top" >
 <code><span id="TYPEELTfilter.Tag"><span class="constructor">Tag</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
 <tr>
-<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
 <code class="code"><span class="constructor">Tag</span> tag</code> matches devices which have the given <code class="code">tag</code> attached.<br>
 </div>
 </td>
@@ -118,7 +118,7 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
 <td align="left" valign="top" >
 <code><span id="TYPEELTfilter.Parent"><span class="constructor">Parent</span></span> <span class="keyword">of</span> <code class="type"><a href="Libudev.Device.html#TYPEt">Libudev.Device.t</a></code></code></td></tr>
 <tr>
-<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
 <code class="code"><span class="constructor">Parent</span> parent</code> matches devices on the subtree of the given <code class="code">parent</code>
         device.<br>
 </div>
@@ -130,7 +130,7 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
 <td align="left" valign="top" >
 <code><span id="TYPEELTfilter.Is_initialized"><span class="constructor">Is_initialized</span></span></code></td></tr>
 <tr>
-<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
 <code class="code"><span class="constructor">Is_initialized</span></code> matches devices which are initialized. 
 <p>
 
