@@ -5,6 +5,7 @@ homepage: "http://github.com/Armael/libudev"
 dev-repo: "http://github.com/Armael/libudev.git"
 bug-reports: "https://github.com/Armael/libudev/issues"
 license: "MIT"
+available: [ ocaml-version >= "4.01.0" ]
 depends: [ "ocamlfind" {build}
            "ocamlbuild" {build}
            "ctypes" {>= "0.4.1"}
