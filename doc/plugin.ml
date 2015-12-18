@@ -324,7 +324,7 @@ struct
              );
            self#html_of_variant_info b t.ty_info;
            bs b "\n";
-           bs b "<table class=\"typetable\">\n";
+           bs b "<table class=\"typetable varianttable\">\n";
            let print_one constr =
              bs b "<tr>\n<td align=\"left\" valign=\"top\" >\n";
              bs b "<code>";
@@ -354,8 +354,7 @@ struct
                match constr.vc_text with
                  None -> ()
                | Some t ->
-                 bs b "<td></td>";
-                 bs b "<td class=\"typefieldcomment\" align=\"left\" valign=\"top\" >";
+                 bs b "<td class=\"typefieldcomment\" align=\"left\" valign=\"top\" colspan=\"2\">";
                  self#html_of_info b (Some t);
                  bs b "</td>";
              );
