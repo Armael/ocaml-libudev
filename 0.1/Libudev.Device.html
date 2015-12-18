@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Libudev.Context.html">
+<link rel="next" href="Libudev.Monitor.html">
+<link rel="Up" href="Libudev.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Libudev" rel="Chapter" href="Libudev.html"><link title="General attributes " rel="Section" href="#1_Generalattributes">
+<link title="Device driver and subsystem " rel="Section" href="#1_Devicedriverandsubsystem">
+<link title="Device nodes " rel="Section" href="#1_Devicenodes">
+<link title="Device initialization time " rel="Section" href="#1_Deviceinitializationtime">
+<link title="Device hierarchy " rel="Section" href="#1_Devicehierarchy">
+<link title="Device events " rel="Section" href="#1_Deviceevents">
+<link title="Device properties " rel="Section" href="#1_Deviceproperties">
+<link title="Sysfs attributes " rel="Section" href="#1_Sysfsattributes">
+<title>Libudev.Device</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Libudev.Context.html" title="Libudev.Context">Previous</a>
+&nbsp;<a class="up" href="Libudev.html" title="Libudev">Up</a>
+&nbsp;<a class="post" href="Libudev.Monitor.html" title="Libudev.Monitor">Next</a>
+</div>
+<h1>Module <a href="type_Libudev.Device.html">Libudev.Device</a></h1>
+
+<pre><span class="keyword">module</span> Device: <code class="code"><span class="keyword">sig</span></code> <a href="Libudev.Device.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+Accessing device information.<br>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+A <code class="code"><span class="constructor">Device</span>.t</code> corresponds to a system device.<br>
+</div>
+
+
+<pre><code><span id="TYPEdescr"><span class="keyword">type</span> <code class="type"></code>descr</span> = </code></pre><div class="variantinfo">
+A type describing different ways of creating a <code class="code"><span class="constructor">Device</span>.t</code> using
+      <code class="code"><span class="constructor">Device</span>.create</code>.<br>
+</div>
+
+<table class="typetable varianttable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdescr.Syspath"><span class="constructor">Syspath</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
+<tr>
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
+A device path in <code class="code">/sys</code>, including the mount point. 
+<p>
+
+    Example: <code class="code"><span class="constructor">Device</span>.create (<span class="constructor">Device</span>.<span class="constructor">Syspath</span> <span class="string">"/sys/devices/platform"</span>)</code>.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdescr.Subsystem_sysname"><span class="constructor">Subsystem_sysname</span></span> <span class="keyword">of</span> <code class="type">string * string</code></code></td></tr>
+<tr>
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
+A given subsystem, and a given sys name.
+<p>
+
+        Example: <code class="code"><span class="constructor">Device</span>.create (<span class="constructor">Device</span>.<span class="constructor">Subsystem_sysname</span> (<span class="string">"block"</span>, <span class="string">"sda"</span>))</code>.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdescr.Device_id"><span class="constructor">Device_id</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
+<tr>
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
+A device id, which is a special string in one of the following four forms:
+<p>
+<ul>
+<li>block device major:minor; example: <code class="code"><span class="string">"b8:2"</span></code></li>
+<li>char device major:minor; example: <code class="code"><span class="string">"c128:1"</span></code></li>
+<li>network device ifindex; example: <code class="code"><span class="string">"n3"</span></code></li>
+<li>kernel driver core subsystem:device name; example: <code class="code"><span class="string">"+sound:card29"</span></code></li>
+</ul>
+<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdescr.Environment"><span class="constructor">Environment</span></span></code></td></tr>
+<tr>
+<td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
+The process environment.
+<p>
+
+        This only works reliably if the current process is called from an udev
+        rule, and is usually used for tools executed from <code class="code"><span class="constructor">IMPORT</span>=</code>
+        rules. Use this method to create device objects in OCaml programs called
+        from udev rules.<br>
+</div>
+</td>
+</tr></table>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type"><a href="Libudev.Context.html#TYPEt">Libudev.Context.t</a> -> <a href="Libudev.Device.html#TYPEdescr">descr</a> -> <a href="Libudev.Device.html#TYPEt">t</a></code></pre><div class="info ">
+Create a <code class="code"><span class="constructor">Device</span>.t</code> from a <code class="code"><span class="constructor">Device</span>.descr</code>.<br>
+</div>
+<br>
+<h1 id="1_Generalattributes">General attributes </h1><br>
+
+<pre><span id="VALcontext"><span class="keyword">val</span> context</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> <a href="Libudev.Context.html#TYPEt">Libudev.Context.t</a></code></pre><div class="info ">
+The <code class="code"><span class="constructor">Context</span>.t</code> to which the device is bound.<br>
+</div>
+
+<pre><span id="VALsyspath"><span class="keyword">val</span> syspath</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+Absolute path of this device in <code class="code">sysfs</code> including the <code class="code">sysfs</code>
+      mount point, as a unicode string.<br>
+</div>
+
+<pre><span id="VALsysname"><span class="keyword">val</span> sysname</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+Device file name inside <code class="code">sysfs</code> as unicode string.<br>
+</div>
+
+<pre><span id="VALsysnum"><span class="keyword">val</span> sysnum</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string option</code></pre><div class="info ">
+The trailing number of the <code class="code">sysname</code> as unicode string, if any.
+<p>
+
+      Note: the number is returned as a unicode string to preserve the exact
+      format of the number, especially any leading zeros.<br>
+</div>
+
+<pre><span id="VALdevpath"><span class="keyword">val</span> devpath</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+Kernel device path as a unicode string. This path uniquely identifies a
+      single device.
+<p>
+
+      Unlike <code class="code"><span class="constructor">Device</span>.syspath</code>, this path does not contain the <code class="code">sysfs</code> mount
+      point. However, the path is absolute and starts with a slash <code class="code"><span class="string">"/"</span></code>.<br>
+</div>
+
+<pre><span id="VALtags"><span class="keyword">val</span> tags</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string list</code></pre><div class="info ">
+The tags attached to the device. Tags are arbitrary classifiers that can
+      be attached to devices by udev scripts and daemons. For instance, <a href="
+      http://freedesktop.org/wiki/Software/systemd "> systemd </a> uses tags for <a href="
+      http://www.freedesktop.org/wiki/Software/systemd/multiseat "> multi-seat </a>
+      support.<br>
+</div>
+
+<pre><span id="VALhas_tag"><span class="keyword">val</span> has_tag</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string -> bool</code></pre><div class="info ">
+Check is the device has some tag.<br>
+</div>
+<br>
+<h1 id="1_Devicedriverandsubsystem">Device driver and subsystem </h1><br>
+
+<pre><span id="VALsubsystem"><span class="keyword">val</span> subsystem</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+Name of the subsystem the device is part of, as a unicode string.<br>
+</div>
+
+<pre><span id="VALdriver"><span class="keyword">val</span> driver</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string option</code></pre><div class="info ">
+The driver name as a unicode string, if any.<br>
+</div>
+
+<pre><span id="VALdevtype"><span class="keyword">val</span> devtype</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string option</code></pre><div class="info ">
+The device type as a unicode string, if it is known.<br>
+</div>
+<br>
+<h1 id="1_Devicenodes">Device nodes </h1><br>
+
+<pre><span id="VALdevnode"><span class="keyword">val</span> devnode</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string option</code></pre><div class="info ">
+Absolute path to the device node of this device, as a unicode string, if
+      the device has a device node. 
+<p>
+
+      This path always points to the actual device node associated with this device,
+      and never to any symbolic links to this device node. See <code class="code"><span class="constructor">Device</span>.devlinks</code> to
+      get a list of symbolic links to this device node.<br>
+</div>
+
+<pre><span id="VALdevlinks"><span class="keyword">val</span> devlinks</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string list</code></pre><div class="info ">
+The absolute paths of all symbolic links pointing to the <code class="code"><span class="constructor">Device</span>.devnode</code>
+      of this device. The paths are unicode strings. 
+<p>
+
+      UDev can create symlinks to the original device node (see
+      <code class="code"><span class="constructor">Device</span>.devnode</code>) inside the device directory. This is often used to
+      assign a constant, fixed device node to devices like removeable media,
+      which technically do not have a constant device node, or to map a single
+      device into multiple device hierarchies. This function provides access to
+      all such symbolic links, which were created by UDev for this device.<br>
+</div>
+<br>
+<h1 id="1_Deviceinitializationtime">Device initialization time </h1><br>
+
+<pre><span id="VALis_initialized"><span class="keyword">val</span> is_initialized</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+Checks if the device is initialized
+<p>
+
+      A device is initialized if udev has already handled this device and has
+      set up device node permissions and context, or renamed a network device.
+<p>
+
+      Such a distinction is meaningful only for devices with a device node, or
+      for network devices. For all other devices, the function returns <code class="code"><span class="keyword">true</span></code>.
+<p>
+
+      Using uninitialized devices is <i>not</i> recommended.<br>
+</div>
+
+<pre><span id="VALusec_since_initialized"><span class="keyword">val</span> usec_since_initialized</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> Stdint.Uint64.t</code></pre><div class="info ">
+The time elapsed since initialization, as a number of microseconds.
+<p>
+
+      This is only implemented on devices which need to store properties in the
+      udev database. For all other devices, <code class="code"><span class="constructor">Uint64</span>.zero</code> is returned.<br>
+</div>
+<br>
+<h1 id="1_Devicehierarchy">Device hierarchy </h1><br>
+
+<pre><span id="VALparent"><span class="keyword">val</span> parent</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> <a href="Libudev.Device.html#TYPEt">t</a> option</code></pre><div class="info ">
+The parent of the device, if any.<br>
+</div>
+
+<pre><span id="VALfind_parent"><span class="keyword">val</span> find_parent</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -><br>       ?devtype:string -> subsystem:string -> <a href="Libudev.Device.html#TYPEt">t</a> option</code></pre><div class="info ">
+Find the parent device within the given <code class="code">subsystem</code> and optionally with
+      the given <code class="code">devtype</code>, if any.
+<p>
+
+      <code class="code">subsystem</code> contains the name of the subsystem, in which to search for the
+      parent. <code class="code">devtype</code> optionally holds the expected device type of the parent.<br>
+</div>
+<br>
+<h1 id="1_Deviceevents">Device events </h1><br>
+
+<pre><code><span id="TYPEaction"><span class="keyword">type</span> <code class="type"></code>action</span> = </code></pre><div class="variantinfo">
+A device event action, for devices received from a <code class="code"><span class="constructor">Monitor</span>.t</code>.<br>
+</div>
+
+<table class="typetable varianttable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaction.Add"><span class="constructor">Add</span></span></code></td></tr>
+<tr>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaction.Remove"><span class="constructor">Remove</span></span></code></td></tr>
+<tr>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaction.Change"><span class="constructor">Change</span></span></code></td></tr>
+<tr>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaction.Online"><span class="constructor">Online</span></span></code></td></tr>
+<tr>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaction.Offline"><span class="constructor">Offline</span></span></code></td></tr>
+<tr>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaction.Other"><span class="constructor">Other</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
+<tr>
+
+</tr></table>
+
+
+<pre><span id="VALstring_of_action"><span class="keyword">val</span> string_of_action</span> : <code class="type"><a href="Libudev.Device.html#TYPEaction">action</a> -> string</code></pre>
+<pre><span id="VALaction"><span class="keyword">val</span> action</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> <a href="Libudev.Device.html#TYPEaction">action</a> option</code></pre><div class="info ">
+The device event action. Returns <code class="code"><span class="constructor">None</span></code> if the device was not received
+      from a <code class="code"><span class="constructor">Monitor</span>.t</code><br>
+</div>
+
+<pre><span id="VALseqnum"><span class="keyword">val</span> seqnum</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> Stdint.Uint64.t</code></pre><div class="info ">
+The device event sequence number, or <code class="code"><span class="constructor">Uint64</span>.zero</code> if this device has no
+      sequence number, i.e. was not received from a <code class="code"><span class="constructor">Monitor</span>.t</code><br>
+</div>
+<br>
+<h1 id="1_Deviceproperties">Device properties </h1><br>
+
+<pre><span id="VALproperties"><span class="keyword">val</span> properties</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> (string * string) list</code></pre><div class="info ">
+Return the properties defined for a device, as a <code class="code">(key, value)</code> list.<br>
+</div>
+
+<pre><span id="VALproperty"><span class="keyword">val</span> property</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string -> string option</code></pre><div class="info ">
+Return the value of a property, if present.<br>
+</div>
+
+<pre><span id="VALint_property"><span class="keyword">val</span> int_property</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string -> int option</code></pre>
+<pre><span id="VALbool_property"><span class="keyword">val</span> bool_property</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string -> bool option</code></pre><br>
+<h1 id="1_Sysfsattributes">Sysfs attributes </h1><br>
+
+<pre><span id="VALsysattrs"><span class="keyword">val</span> sysattrs</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> (string * string) list</code></pre><div class="info ">
+Return the system attributes of the device, as a <code class="code">(key, value)</code> list.
+<p>
+
+      System attributes are basically normal files inside the device
+      directory. These files contain all sorts of information about the device,
+      which may not be reflected by properties. These attributes are commonly
+      used for matching in udev rules, and can be printed using <code class="code">udevadm info
+      --attribute-walk</code>.<br>
+</div>
+
+<pre><span id="VALsysattr"><span class="keyword">val</span> sysattr</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string -> string option</code></pre><div class="info ">
+Return the value of an attribute, if present.<br>
+</div>
+
+<pre><span id="VALint_sysattr"><span class="keyword">val</span> int_sysattr</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string -> int option</code></pre>
+<pre><span id="VALbool_sysattr"><span class="keyword">val</span> bool_sysattr</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string -> bool option</code></pre>
+<pre><span id="VALset_sysattr"><span class="keyword">val</span> set_sysattr</span> : <code class="type"><a href="Libudev.Device.html#TYPEt">t</a> -> string -> string -> unit</code></pre><div class="info ">
+Update the value of a device attribute.<br>
+</div>
+</body></html>

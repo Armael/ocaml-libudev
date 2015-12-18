@@ -1,0 +1,51 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Libudev" rel="Chapter" href="Libudev.html"><title>Libudev.Device</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;descr&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Syspath</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Subsystem_sysname</span>&nbsp;<span class="keyword">of</span>&nbsp;string&nbsp;*&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Device_id</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Environment</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;create&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Context</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.descr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;context&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Context</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;syspath&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sysname&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sysnum&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;devpath&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;tags&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;has_tag&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;subsystem&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;driver&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;devtype&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;devnode&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;devlinks&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;is_initialized&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;usec_since_initialized&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Stdint</span>.<span class="constructor">Uint64</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;parent&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find_parent&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?devtype:string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;subsystem:string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;action&nbsp;=&nbsp;<span class="constructor">Add</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Remove</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Change</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Online</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Offline</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Other</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_action&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.action&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;action&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.action&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;seqnum&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Stdint</span>.<span class="constructor">Uint64</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;properties&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;property&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_property&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;bool_property&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sysattrs&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sysattr&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;int_sysattr&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;bool_sysattr&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_sysattr&nbsp;:&nbsp;<span class="constructor">Libudev</span>.<span class="constructor">Device</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+<span class="keyword">end</span></code></body></html>
