@@ -1,0 +1,18 @@
+opam-version: "1.2"
+maintainer: "Armael <armael@isomorphis.me>"
+authors: ["Armael <armael@isomorphis.me>"]
+homepage: "http://github.com/Armael/libudev"
+dev-repo: "http://github.com/Armael/libudev.git"
+bug-reports: "https://github.com/Armael/libudev/issues"
+license: "MIT"
+depends: [ "ocamlfind" {build}
+           "ocamlbuild" {build}
+           "ctypes" {>= "0.4.1"}
+           "ctypes-foreign"
+           "unix"
+           "stdint" ]
+build:
+[
+  [ "ocaml" "pkg/build.ml" "native=%{ocaml-native}%"
+                           "native-dynlink=%{ocaml-native-dynlink}%" ]
+]

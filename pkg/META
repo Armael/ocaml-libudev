@@ -1,0 +1,10 @@
+version = "%%VERSION%%"
+description = "OCaml bindings to libudev"
+requires = "ctypes ctypes.foreign stdint unix"
+archive(byte) = "libudev.cma"
+archive(byte, plugin) = "libudev.cma"
+archive(native) = "libudev.cmxa"
+archive(native, plugin) = "libudev.cmxs"
+exists_if = "libudev.cma"
+
+

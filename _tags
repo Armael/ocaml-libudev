@@ -1,0 +1,5 @@
+true: package(ctypes), package(ctypes.foreign), package(stdint), package(unix), bin_annot
+
+<src>: include
+<examples>: include
+<doc/*.docdir>: plugin(doc/plugin.cma)
