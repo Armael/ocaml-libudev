@@ -40,10 +40,6 @@ let check_err = function
   | x when x < 0 -> raise (Error (Errno x))
   | _ -> ()
 
-let libudev = Dl.dlopen
-    ~filename:"libudev.so"
-    ~flags:[Dl.RTLD_NOW; Dl.RTLD_GLOBAL]
-
 module Context = struct
   type t_s
   let t_s : t_s structure typ = structure "udev"
@@ -52,11 +48,11 @@ module Context = struct
   let t = checked_ptr t_s
   
   let unref =
-    foreign ~from:libudev "udev_unref"
+    foreign "udev_unref"
       (t @-> returning t)
 
   let create () =
-    foreign ~from:libudev "udev_new"
+    foreign "udev_new"
       (void @-> returning t) ()
     |> with_gc unref
 end
@@ -69,15 +65,15 @@ module ListEntry = struct
   let t = ptr t_s
 
   let get_next =
-    foreign ~from:libudev "udev_list_entry_get_next"
+    foreign "udev_list_entry_get_next"
       (t @-> returning t)
 
   let get_name =
-    foreign ~from:libudev "udev_list_entry_get_name"
+    foreign "udev_list_entry_get_name"
       (t @-> returning string)
 
   let get_value =
-    foreign ~from:libudev "udev_list_entry_get_value"
+    foreign "udev_list_entry_get_value"
       (t @-> returning string)
 
   let assoc p =
@@ -109,33 +105,33 @@ module Device = struct
     | Environment
 
   let unref =
-    foreign ~from:libudev "udev_device_unref"
+    foreign "udev_device_unref"
       (t @-> returning t)
 
   let context =
-    foreign ~from:libudev "udev_device_get_udev"
+    foreign "udev_device_get_udev"
       (t @-> returning Context.t)
 
   let create_from_syspath u path =
-    foreign ~from:libudev "udev_device_new_from_syspath"
+    foreign "udev_device_new_from_syspath"
       (Context.t @-> string @-> returning t)
       u path
     |> with_gc unref
 
   let create_from_subsystem_sysname u a b =
-    foreign ~from:libudev "udev_device_new_from_subsystem_sysname"
+    foreign "udev_device_new_from_subsystem_sysname"
       (Context.t @-> string @-> string @-> returning t)
       u a b
     |> with_gc unref
 
   let create_from_device_id u id =
-    foreign ~from:libudev "udev_device_new_from_device_id"
+    foreign "udev_device_new_from_device_id"
       (Context.t @-> string @-> returning t)
       u id
     |> with_gc unref
 
   let create_from_environment u =
-    foreign ~from:libudev "udev_device_new_from_environment"
+    foreign "udev_device_new_from_environment"
       (Context.t @-> returning t) u
     |> with_gc unref
 
@@ -146,44 +142,44 @@ module Device = struct
     | Environment -> create_from_environment ctx
 
   let parent =
-    foreign ~from:libudev "udev_device_get_parent"
+    foreign "udev_device_get_parent"
       (t @-> returning (ptr_opt t_s))
 
   let find_parent d ?devtype ~subsystem =
-    foreign ~from:libudev "udev_device_get_parent_with_subsystem_devtype"
+    foreign "udev_device_get_parent_with_subsystem_devtype"
       (t @-> string @-> string_opt @-> returning (ptr_opt t_s))
       d subsystem devtype
 
   let devpath =
-    foreign ~from:libudev "udev_device_get_devpath"
+    foreign "udev_device_get_devpath"
       (t @-> returning string)
 
   let subsystem =
-    foreign ~from:libudev "udev_device_get_subsystem"
+    foreign "udev_device_get_subsystem"
       (t @-> returning string)
 
   let devtype =
-    foreign ~from:libudev "udev_device_get_devtype"
+    foreign "udev_device_get_devtype"
       (t @-> returning string_opt)
 
   let syspath =
-    foreign ~from:libudev "udev_device_get_syspath"
+    foreign "udev_device_get_syspath"
       (t @-> returning string)
 
   let sysname =
-    foreign ~from:libudev "udev_device_get_sysname"
+    foreign "udev_device_get_sysname"
       (t @-> returning string)
 
   let sysnum =
-    foreign ~from:libudev "udev_device_get_sysnum"
+    foreign "udev_device_get_sysnum"
       (t @-> returning string_opt)
 
   let devnode =
-    foreign ~from:libudev "udev_device_get_devnode"
+    foreign "udev_device_get_devnode"
       (t @-> returning string_opt)
 
   let is_initialized dev =
-    foreign ~from:libudev "udev_device_get_is_initialized"
+    foreign "udev_device_get_is_initialized"
       (t @-> returning int) dev
     |> (function
       | 0 -> false
@@ -191,35 +187,35 @@ module Device = struct
       | x -> raise (Error (Errno x)))
 
   let get_devlinks_list_entry =
-    foreign ~from:libudev "udev_device_get_devlinks_list_entry"
+    foreign "udev_device_get_devlinks_list_entry"
       (t @-> returning ListEntry.t)
 
   let devlinks d =
     ListEntry.names (get_devlinks_list_entry d)
 
   let get_properties_list_entry =
-    foreign ~from:libudev "udev_device_get_properties_list_entry"
+    foreign "udev_device_get_properties_list_entry"
       (t @-> returning ListEntry.t)
 
   let properties d =
     ListEntry.assoc (get_properties_list_entry d)
 
   let get_tags_list_entry =
-    foreign ~from:libudev "udev_device_get_tags_list_entry"
+    foreign "udev_device_get_tags_list_entry"
       (t @-> returning ListEntry.t)
 
   let tags d =
     ListEntry.names (get_tags_list_entry d)
 
   let get_sysattr_list_entry =
-    foreign ~from:libudev "udev_device_get_sysattr_list_entry"
+    foreign "udev_device_get_sysattr_list_entry"
       (t @-> returning ListEntry.t)
 
   let sysattrs d =
     ListEntry.assoc (get_sysattr_list_entry d)
 
   let property =
-    foreign ~from:libudev "udev_device_get_property_value"
+    foreign "udev_device_get_property_value"
       (t @-> string @-> returning string_opt)
 
   let int_property d p =
@@ -235,7 +231,7 @@ module Device = struct
     | _ -> raise (Invalid_argument "bool_property")
 
   let driver =
-    foreign ~from:libudev "udev_device_get_driver"
+    foreign "udev_device_get_driver"
       (t @-> returning string_opt)
 
   type action =
@@ -255,7 +251,7 @@ module Device = struct
     | Other s -> s
 
   let action d =
-    foreign ~from:libudev "udev_device_get_action"
+    foreign "udev_device_get_action"
       (t @-> returning string_opt) d
     |> (function
       | None -> None
@@ -267,17 +263,17 @@ module Device = struct
       | Some a -> Some (Other a))
 
   let seqnum d =
-    foreign ~from:libudev "udev_device_get_seqnum"
+    foreign "udev_device_get_seqnum"
       (t @-> returning uint64_t) d
     |> (fun i -> Uint64.of_string (Unsigned.UInt64.to_string i))
 
   let usec_since_initialized d =
-    foreign ~from:libudev "udev_device_get_usec_since_initialized"
+    foreign "udev_device_get_usec_since_initialized"
       (t @-> returning uint64_t) d
     |> (fun i -> Uint64.of_string (Unsigned.UInt64.to_string i))
 
   let sysattr =
-    foreign ~from:libudev "udev_device_get_sysattr_value"
+    foreign "udev_device_get_sysattr_value"
       (t @-> string @-> returning string_opt)
 
   let int_sysattr d a =
@@ -293,13 +289,13 @@ module Device = struct
     | _ -> raise (Invalid_argument "bool_attribute")
 
   let set_sysattr dev sysattr v =
-    foreign ~from:libudev "udev_device_set_sysattr_value"
+    foreign "udev_device_set_sysattr_value"
       (t @-> string @-> string @-> returning int)
       dev sysattr v
     |> check_err
 
   let has_tag =
-    foreign ~from:libudev "udev_device_has_tag"
+    foreign "udev_device_has_tag"
       (t @-> string @-> returning bool)
 end
 
@@ -317,57 +313,57 @@ module Monitor = struct
   type netlink_source = Udev | Kernel
 
   let unref =
-    foreign ~from:libudev "udev_monitor_unref"
+    foreign "udev_monitor_unref"
       (t @-> returning t)
 
   let context =
-    foreign ~from:libudev "udev_monitor_get_udev"
+    foreign "udev_monitor_get_udev"
       (t @-> returning Context.t)
 
   let create ?(source = Udev) u =
     let source = match source with
       | Udev -> "udev"
       | Kernel -> "kernel" in
-    foreign ~from:libudev "udev_monitor_new_from_netlink"
+    foreign "udev_monitor_new_from_netlink"
       (Context.t @-> string @-> returning t) u source
     |> with_gc unref
 
   let enable_receiving m =
-    foreign ~from:libudev "udev_monitor_enable_receiving"
+    foreign "udev_monitor_enable_receiving"
       (t @-> returning int) m
     |> check_err
 
   let set_receive_buffer_size m sz =
-    foreign ~from:libudev "udev_monitor_set_receive_buffer_size"
+    foreign "udev_monitor_set_receive_buffer_size"
       (t @-> int @-> returning int) m sz
     |> check_err
 
   let fd m: Unix.file_descr =
-    foreign ~from:libudev "udev_monitor_get_fd"
+    foreign "udev_monitor_get_fd"
       (t @-> returning int) m
     |> Obj.magic
 
   let receive_device_c =
-    foreign ~from:libudev "udev_monitor_receive_device"
+    foreign "udev_monitor_receive_device"
       (t @-> returning (ptr_opt Device.t_s))
 
   let filter_add_match_subsystem_devtype m a b =
-    foreign ~from:libudev "udev_monitor_filter_add_match_subsystem_devtype"
+    foreign "udev_monitor_filter_add_match_subsystem_devtype"
       (t @-> string @-> string_opt @-> returning int) m a b
     |> check_err
 
   let filter_add_match_tag m n =
-    foreign ~from:libudev "udev_monitor_filter_add_match_tag"
+    foreign "udev_monitor_filter_add_match_tag"
       (t @-> string @-> returning int) m n
     |> check_err
 
   let filter_update m =
-    foreign ~from:libudev "udev_monitor_filter_update"
+    foreign "udev_monitor_filter_update"
       (t @-> returning int) m
     |> check_err
 
   let filter_remove m =
-    foreign ~from:libudev "udev_monitor_filter_remove"
+    foreign "udev_monitor_filter_remove"
       (t @-> returning int) m
     |> check_err
 
@@ -434,80 +430,80 @@ module Enumerate = struct
     | Is_initialized
 
   let unref =
-    foreign ~from:libudev "udev_enumerate_unref"
+    foreign "udev_enumerate_unref"
       (t @-> returning t)
 
   let get_udev =
-    foreign ~from:libudev "udev_enumerate_get_udev"
+    foreign "udev_enumerate_get_udev"
       (t @-> returning Context.t)
 
   let create u =
-    foreign ~from:libudev "udev_enumerate_new"
+    foreign "udev_enumerate_new"
       (Context.t @-> returning t) u
     |> with_gc unref
 
   let add_match_subsystem e n =
-    foreign ~from:libudev "udev_enumerate_add_match_subsystem"
+    foreign "udev_enumerate_add_match_subsystem"
       (t @-> string @-> returning int) e n
     |> check_err
 
   let add_nomatch_subsystem e n =
-    foreign ~from:libudev "udev_enumerate_add_nomatch_subsystem"
+    foreign "udev_enumerate_add_nomatch_subsystem"
       (t @-> string @-> returning int) e n
     |> check_err
 
   let add_match_sysattr e n v =
-    foreign ~from:libudev "udev_enumerate_add_match_sysattr"
+    foreign "udev_enumerate_add_match_sysattr"
       (t @-> string @-> string @-> returning int) e n v
     |> check_err
 
   let add_nomatch_sysattr e n v =
-    foreign ~from:libudev "udev_enumerate_add_nomatch_sysattr"
+    foreign "udev_enumerate_add_nomatch_sysattr"
       (t @-> string @-> string @-> returning int) e n v
     |> check_err
 
   let add_match_property e n v =
-    foreign ~from:libudev "udev_enumerate_add_match_property"
+    foreign "udev_enumerate_add_match_property"
       (t @-> string @-> string @-> returning int) e n v
     |> check_err
 
   let add_match_sysname e n =
-    foreign ~from:libudev "udev_enumerate_add_match_sysname"
+    foreign "udev_enumerate_add_match_sysname"
       (t @-> string @-> returning int) e n
     |> check_err
 
   let add_match_tag e n =
-    foreign ~from:libudev "udev_enumerate_add_match_tag"
+    foreign "udev_enumerate_add_match_tag"
       (t @-> string @-> returning int) e n
     |> check_err
 
   let add_match_parent e p =
-    foreign ~from:libudev "udev_enumerate_add_match_parent"
+    foreign "udev_enumerate_add_match_parent"
       (t @-> Device.t @-> returning int) e p
     |> check_err
 
   let add_match_is_initialized e =
-    foreign ~from:libudev "udev_enumerate_add_match_tag"
+    foreign "udev_enumerate_add_match_tag"
       (t @-> returning int) e
     |> check_err
 
   let add_syspath e s =
-    foreign ~from:libudev "udev_enumerate_add_syspath"
+    foreign "udev_enumerate_add_syspath"
       (t @-> string @-> returning int) e s
     |> check_err
 
   let scan_devices e =
-    foreign ~from:libudev "udev_enumerate_scan_devices"
+    foreign "udev_enumerate_scan_devices"
       (t @-> returning int) e
     |> check_err
   
   let scan_subsystems e =
-    foreign ~from:libudev "udev_enumerate_scan_subsystems"
+    foreign "udev_enumerate_scan_subsystems"
       (t @-> returning int) e
     |> check_err
   
   let get_list_entry =
-    foreign ~from:libudev "udev_enumerate_get_list_entry"
+    foreign "udev_enumerate_get_list_entry"
       (t @-> returning ListEntry.t)
 
   let of_scan scan ctx f =

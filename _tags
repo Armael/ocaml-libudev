@@ -1,5 +1,11 @@
-true: package(ctypes), package(ctypes.foreign), package(stdint), package(unix), bin_annot
+<**/*.ml{,i}>: bin_annot
 
 <src>: include
+<src/libudev.ml{,i}>: package(ctypes), package(stdint), package(unix)
+<src/libudev.{cma,cmxa,cmxs}>: custom, package(ctypes), package(ctypes.foreign), use_libudev
+<src/libudev_stubs.*>: use_libudev
+
 <examples>: include
+<examples/*.{native,byte}>: package(ctypes), package(ctypes.foreign), package(unix), package(stdint), use_libudev
+
 <doc/*.docdir>: plugin(doc/plugin.cma)
