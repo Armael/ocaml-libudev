@@ -1,4 +1,4 @@
-(** OCaml bindings for [libudev].
+(** OCaml bindings to [libudev].
 
     Part of the documentation has been derived from the {{:
     http://pyudev.readthedocs.org/en/latest/api/pyudev.html } pyudev
