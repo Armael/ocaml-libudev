@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Libudev.Monitor.html">
+<link rel="Up" href="Libudev.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Libudev" rel="Chapter" href="Libudev.html"><title>Libudev.Enumerate</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Libudev.Monitor.html" title="Libudev.Monitor">Previous</a>
+&nbsp;<a class="up" href="Libudev.html" title="Libudev">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Libudev.Enumerate.html">Libudev.Enumerate</a></h1>
+
+<pre><span class="keyword">module</span> Enumerate: <code class="code"><span class="keyword">sig</span></code> <a href="Libudev.Enumerate.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+Device enumeration and filtering.<br>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEfilter"><span class="keyword">type</span> <code class="type"></code>filter</span> = </code></pre><div class="variantinfo">
+The devices enumerated using <code class="code"><span class="constructor">Enumerate</span>.devices</code> and
+      <code class="code"><span class="constructor">Enumerate</span>.subsystems</code> can be filtered, specifying a list of <code class="code">filter</code>
+      values.<br>
+</div>
+
+<table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.Subsystem"><span class="constructor">Subsystem</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">Subsystem</span> subsystem</code> matches devices that are part of <code class="code">subsystem</code>.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.NoSubsystem"><span class="constructor">NoSubsystem</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">NoSubsystem</span> subsystem</code> matches devices that are not part of
+        <code class="code">subsystem</code>.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.Sysattr"><span class="constructor">Sysattr</span></span> <span class="keyword">of</span> <code class="type">string * string</code></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">Sysattr</span> (attribute, value)</code> matches devices whose <code class="code">attribute</code> has the
+        given <code class="code">value</code>.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.NoSysattr"><span class="constructor">NoSysattr</span></span> <span class="keyword">of</span> <code class="type">string * string</code></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">Sysattr</span> (attribute, value)</code> matches devices whose <code class="code">attribute</code> doesn't
+        have the given <code class="code">value</code>. Devices that do not have <code class="code">attribute</code> at all are
+        also included.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.Property"><span class="constructor">Property</span></span> <span class="keyword">of</span> <code class="type">string * string</code></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">Property</span> (prop, value)</code> matches devices whose <code class="code">prop</code> has the given
+        <code class="code">value</code>.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.Sysname"><span class="constructor">Sysname</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">Sysname</span> name</code> matches devices with the given <code class="code">name</code>.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.Tag"><span class="constructor">Tag</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">Tag</span> tag</code> matches devices which have the given <code class="code">tag</code> attached.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.Parent"><span class="constructor">Parent</span></span> <span class="keyword">of</span> <code class="type"><a href="Libudev.Device.html#TYPEt">Libudev.Device.t</a></code></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">Parent</span> parent</code> matches devices on the subtree of the given <code class="code">parent</code>
+        device.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.Is_initialized"><span class="constructor">Is_initialized</span></span></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">Is_initialized</span></code> matches devices which are initialized. 
+<p>
+
+        Initialized devices have properly set device node permissions and
+        context, and are (in case of network devices) fully renamed.
+<p>
+
+        Currently this will not affect devices which do not have device dones
+        and are not network interfaces.<br>
+</div>
+</td>
+</tr></table>
+
+
+<pre><span id="VALdevices"><span class="keyword">val</span> devices</span> : <code class="type"><a href="Libudev.Context.html#TYPEt">Libudev.Context.t</a> -> <a href="Libudev.Enumerate.html#TYPEfilter">filter</a> list -> <a href="Libudev.Device.html#TYPEt">Libudev.Device.t</a> list</code></pre><div class="info ">
+List the devices matching the given filter list.<br>
+</div>
+
+<pre><span id="VALsubsystems"><span class="keyword">val</span> subsystems</span> : <code class="type"><a href="Libudev.Context.html#TYPEt">Libudev.Context.t</a> -> <a href="Libudev.Enumerate.html#TYPEfilter">filter</a> list -> <a href="Libudev.Device.html#TYPEt">Libudev.Device.t</a> list</code></pre><div class="info ">
+List the subsystems matching the given filter list.<br>
+</div>
+</body></html>

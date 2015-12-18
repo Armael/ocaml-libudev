@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Libudev.Device.html">
+<link rel="next" href="Libudev.Enumerate.html">
+<link rel="Up" href="Libudev.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Libudev" rel="Chapter" href="Libudev.html"><title>Libudev.Monitor</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Libudev.Device.html" title="Libudev.Device">Previous</a>
+&nbsp;<a class="up" href="Libudev.html" title="Libudev">Up</a>
+&nbsp;<a class="post" href="Libudev.Enumerate.html" title="Libudev.Enumerate">Next</a>
+</div>
+<h1>Module <a href="type_Libudev.Monitor.html">Libudev.Monitor</a></h1>
+
+<pre><span class="keyword">module</span> Monitor: <code class="code"><span class="keyword">sig</span></code> <a href="Libudev.Monitor.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+Device monitoring.<br>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+A <code class="code"><span class="constructor">Monitor</span>.t</code> monitor listens for changes to the device list. A monitor is
+      created by connecting to the kernel daemon through netlink (see
+      <code class="code"><span class="constructor">Monitor</span>.create</code>).<br>
+</div>
+
+
+<pre><code><span id="TYPEfilter"><span class="keyword">type</span> <code class="type"></code>filter</span> = </code></pre><div class="variantinfo">
+Once the monitor is created, the devices that it listens to can be
+      filtered using <code class="code"><span class="constructor">Monitor</span>.set_filter</code>, specifying a list of <code class="code">filter</code> values.<br>
+</div>
+
+<table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.Tag"><span class="constructor">Tag</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">Tag</span> tag</code> matches devices which have the tag <code class="code">tag</code> attached.<br>
+</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfilter.Subsystem_devtype"><span class="constructor">Subsystem_devtype</span></span> <span class="keyword">of</span> <code class="type">string * string option</code></code></td></tr>
+<tr>
+<td></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<code class="code"><span class="constructor">Subsystem_devtype</span> (subsystem, devtype)</code> matches devices of <code class="code">subsystem</code>,
+        with optionally device type <code class="code">devtype</code>.<br>
+</div>
+</td>
+</tr></table>
+
+
+<pre><code><span id="TYPEnetlink_source"><span class="keyword">type</span> <code class="type"></code>netlink_source</span> = </code></pre><div class="variantinfo">
+Netlink source from which to listen to. See <code class="code"><span class="constructor">Monitor</span>.create</code>.<br>
+</div>
+
+<table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTnetlink_source.Udev"><span class="constructor">Udev</span></span></code></td></tr>
+<tr>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword pipe">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTnetlink_source.Kernel"><span class="constructor">Kernel</span></span></code></td></tr>
+<tr>
+
+</tr></table>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">?source:<a href="Libudev.Monitor.html#TYPEnetlink_source">netlink_source</a> -><br>       <a href="Libudev.Context.html#TYPEt">Libudev.Context.t</a> -> <a href="Libudev.Monitor.html#TYPEt">t</a></code></pre><div class="info ">
+Create a monitor by connecting to the kernel daemon through netlink.
+<p>
+
+      By default, <code class="code">source</code> is <code class="code"><span class="constructor">Udev</span></code>: the monitor listens to the events emitted
+      after udev has registered and configured the device. This is the absolutely
+      recommended source for applications.
+<p>
+
+      A <code class="code">source</code> of <code class="code"><span class="constructor">Kernel</span></code> means that the monitor receives the events directly
+      after the kernel has seen the device. The device has not yet been configured
+      by udev and might not be usable at all. Do <b>not</b> use this, unless you know
+      what you are doing.<br>
+</div>
+
+<pre><span id="VALcontext"><span class="keyword">val</span> context</span> : <code class="type"><a href="Libudev.Monitor.html#TYPEt">t</a> -> <a href="Libudev.Context.html#TYPEt">Libudev.Context.t</a></code></pre><div class="info ">
+The context to which a monitor is bound.<br>
+</div>
+
+<pre><span id="VALset_receive_buffer_size"><span class="keyword">val</span> set_receive_buffer_size</span> : <code class="type"><a href="Libudev.Monitor.html#TYPEt">t</a> -> int -> unit</code></pre><div class="info ">
+Set the receive buffer size, in bytes.<br>
+</div>
+
+<pre><span id="VALfd"><span class="keyword">val</span> fd</span> : <code class="type"><a href="Libudev.Monitor.html#TYPEt">t</a> -> Unix.file_descr</code></pre><div class="info ">
+Return the file descriptor associated with the monitor.<br>
+</div>
+
+<pre><span id="VALset_filter"><span class="keyword">val</span> set_filter</span> : <code class="type"><a href="Libudev.Monitor.html#TYPEt">t</a> -> <a href="Libudev.Monitor.html#TYPEfilter">filter</a> list -> unit</code></pre><div class="info ">
+Filter the devices that are listened by a monitor.<br>
+</div>
+
+<pre><span id="VALstart"><span class="keyword">val</span> start</span> : <code class="type"><a href="Libudev.Monitor.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+Start a monitor. A monitor <code class="code">m</code> will not receive events until
+      <code class="code"><span class="constructor">Monitor</span>.start m</code> is called. This function does nothing if called on an
+      already started monitor.<br>
+</div>
+
+<pre><span id="EXCEPTIONTimeout"><span class="keyword">exception</span> Timeout</span></pre>
+<div class="info ">
+See <code class="code"><span class="constructor">Monitor</span>.receive_device</code>.<br>
+</div>
+
+<pre><span id="VALreceive_device"><span class="keyword">val</span> receive_device</span> : <code class="type">?timeout:float -> <a href="Libudev.Monitor.html#TYPEt">t</a> -> <a href="Libudev.Device.html#TYPEt">Libudev.Device.t</a></code></pre><div class="info ">
+Poll for a device event. <code class="code"><span class="constructor">Monitor</span>.receive_device ~timeout m</code> will block
+      until a device event is received, or after <code class="code">timeout</code> seconds, in which case
+      the <code class="code"><span class="constructor">Timeout</span></code> exception is raised. 
+<p>
+
+      If no <code class="code">timeout</code> value is specified, the function blocks until a device
+      event is available. A <code class="code">timeout</code> of <code class="code">0.</code> means that the function just polls
+      and will never block.<br>
+</div>
+</body></html>
