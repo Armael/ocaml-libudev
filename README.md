@@ -3,7 +3,8 @@
 Bindings to [libudev](http://0pointer.de/public/systemd-man/libudev.html).
 
 Online documentation can be found
-[here](http://armael.github.io/ocaml-libudev/dev/Libudev.html).
+[here](http://armael.github.io/ocaml-libudev/dev/Libudev.html)
+([v0.1](http://armael.github.io/ocaml-libudev/0.1/Libudev.html)).
 
 ## Installing
 
