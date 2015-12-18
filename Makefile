@@ -10,8 +10,7 @@ examples: lib
 	$(OB) examples.otarget
 
 plugin:
-	$(OB) -tag use_ocamldoc -package compiler-libs doc/plugin.cmx
-	ocamlopt -o _build/doc/plugin.cmxs -shared _build/doc/plugin.cmx
+	$(OB) -cflags -I,+ocamldoc -package compiler-libs doc/plugin.cmxs
 
 doc: lib plugin
 	$(OB) $(ODOCFLAGS) doc/api.docdir/index.html
