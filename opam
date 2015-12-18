@@ -10,6 +10,10 @@ depends: [ "ocamlfind" {build}
            "ctypes" {>= "0.4.1"}
            "ctypes-foreign"
            "stdint" ]
+depexts: [
+  [["debian"] ["libudev-dev"]]
+  [["ubuntu"] ["libudev-dev"]]
+]
 build:
 [
   [ "ocaml" "pkg/build.ml" "native=%{ocaml-native}%"
