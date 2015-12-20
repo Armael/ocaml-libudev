@@ -6,10 +6,10 @@ Online documentation can be found
 [here](http://armael.github.io/ocaml-libudev/dev/Libudev.html)
 ([v0.1](http://armael.github.io/ocaml-libudev/0.1/Libudev.html)).
 
-## Installing
+## Installation
 
 ```
-opam pin add libudev https://github.com/Armael/ocaml-libudev.git
+opam install libudev
 ```
 
 ## Examples
