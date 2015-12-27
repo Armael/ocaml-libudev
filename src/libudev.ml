@@ -40,6 +40,13 @@ let check_err = function
   | x when x < 0 -> raise (Error (Errno x))
   | _ -> ()
 
+let rec filter_map f = function
+  | [] -> []
+  | x :: xs ->
+    match f x with
+    | None -> filter_map f xs
+    | Some y -> y :: (filter_map f xs)
+
 module Context = struct
   type t_s
   let t_s : t_s structure typ = structure "udev"
@@ -207,13 +214,6 @@ module Device = struct
   let tags d =
     ListEntry.names (get_tags_list_entry d)
 
-  let get_sysattr_list_entry =
-    foreign "udev_device_get_sysattr_list_entry"
-      (t @-> returning ListEntry.t)
-
-  let sysattrs d =
-    ListEntry.assoc (get_sysattr_list_entry d)
-
   let property =
     foreign "udev_device_get_property_value"
       (t @-> string @-> returning string_opt)
@@ -293,6 +293,17 @@ module Device = struct
       (t @-> string @-> string @-> returning int)
       dev sysattr v
     |> check_err
+
+  let get_sysattr_list_entry =
+    foreign "udev_device_get_sysattr_list_entry"
+      (t @-> returning ListEntry.t)
+
+  let sysattrs d =
+    ListEntry.names (get_sysattr_list_entry d)
+    |> filter_map (fun name ->
+      match sysattr d name with
+      | None -> None
+      | Some attr -> Some (name, attr))
 
   let has_tag =
     foreign "udev_device_has_tag"
