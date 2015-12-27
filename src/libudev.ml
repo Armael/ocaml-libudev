@@ -49,7 +49,7 @@ module Context = struct
   
   let unref =
     foreign "udev_unref"
-      (t @-> returning t)
+      (t @-> returning void)
 
   let create () =
     foreign "udev_new"
@@ -106,7 +106,7 @@ module Device = struct
 
   let unref =
     foreign "udev_device_unref"
-      (t @-> returning t)
+      (t @-> returning void)
 
   let context =
     foreign "udev_device_get_udev"
@@ -314,7 +314,7 @@ module Monitor = struct
 
   let unref =
     foreign "udev_monitor_unref"
-      (t @-> returning t)
+      (t @-> returning void)
 
   let context =
     foreign "udev_monitor_get_udev"
@@ -431,7 +431,7 @@ module Enumerate = struct
 
   let unref =
     foreign "udev_enumerate_unref"
-      (t @-> returning t)
+      (t @-> returning void)
 
   let get_udev =
     foreign "udev_enumerate_get_udev"
