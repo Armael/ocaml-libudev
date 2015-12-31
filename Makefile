@@ -4,7 +4,7 @@ OB=ocamlbuild -tag debug -classic-display -use-ocamlfind
 ODOCFLAGS=-docflags -colorize-code,-charset,utf8
 
 lib:
-	$(OB) libudev.cma libudev.cmxa
+	$(OB) udev.cma udev.cmxa
 
 examples: lib
 	$(OB) examples.otarget

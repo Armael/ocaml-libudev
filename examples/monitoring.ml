@@ -1,4 +1,4 @@
-open Libudev
+open Udev
 
 let rec sleep t =
   if t > 0. then

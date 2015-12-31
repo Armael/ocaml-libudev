@@ -1,4 +1,4 @@
-open Libudev
+open Udev
 
 let str out = function
   | None -> Printf.fprintf out "-"

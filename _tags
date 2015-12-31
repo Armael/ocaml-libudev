@@ -1,8 +1,8 @@
 <**/*.ml{,i}>: bin_annot
 
 <src>: include
-<src/libudev.ml{,i}>: package(ctypes), package(stdint), package(unix)
-<src/libudev.{cma,cmxa,cmxs}>: custom, package(ctypes), package(ctypes.foreign), use_libudev
+<src/udev.ml{,i}>: package(ctypes), package(stdint), package(unix)
+<src/udev.{cma,cmxa,cmxs}>: custom, package(ctypes), package(ctypes.foreign), use_libudev
 <src/libudev_stubs.*>: use_libudev
 
 <examples>: include
