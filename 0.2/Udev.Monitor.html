@@ -4,25 +4,25 @@
 <link rel="stylesheet" href="style.css" type="text/css">
 <meta content="text/html; charset=utf8" http-equiv="Content-Type">
 <link rel="Start" href="index.html">
-<link rel="previous" href="Libudev.Device.html">
-<link rel="next" href="Libudev.Enumerate.html">
-<link rel="Up" href="Libudev.html">
+<link rel="previous" href="Udev.Device.html">
+<link rel="next" href="Udev.Enumerate.html">
+<link rel="Up" href="Udev.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
 <link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
-<link title="Libudev" rel="Chapter" href="Libudev.html"><link title="Filtering & listening for devices" rel="Section" href="#1_Filteringlisteningfordevices">
+<link title="Udev" rel="Chapter" href="Udev.html"><link title="Filtering & listening for devices" rel="Section" href="#1_Filteringlisteningfordevices">
 <link title="Utilities" rel="Section" href="#1_Utilities">
-<title>Libudev.Monitor</title>
+<title>Udev.Monitor</title>
 </head>
 <body>
-<div class="navbar"><a class="pre" href="Libudev.Device.html" title="Libudev.Device">Previous</a>
-&nbsp;<a class="up" href="Libudev.html" title="Libudev">Up</a>
-&nbsp;<a class="post" href="Libudev.Enumerate.html" title="Libudev.Enumerate">Next</a>
+<div class="navbar"><a class="pre" href="Udev.Device.html" title="Udev.Device">Previous</a>
+&nbsp;<a class="up" href="Udev.html" title="Udev">Up</a>
+&nbsp;<a class="post" href="Udev.Enumerate.html" title="Udev.Enumerate">Next</a>
 </div>
-<h1>Module <a href="type_Libudev.Monitor.html">Libudev.Monitor</a></h1>
+<h1>Module <a href="type_Udev.Monitor.html">Udev.Monitor</a></h1>
 
-<pre><span class="keyword">module</span> Monitor: <code class="code"><span class="keyword">sig</span></code> <a href="Libudev.Monitor.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+<pre><span class="keyword">module</span> Monitor: <code class="code"><span class="keyword">sig</span></code> <a href="Udev.Monitor.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 Device monitoring.<br>
 </div>
 <hr width="100%">
@@ -89,7 +89,7 @@ Netlink source from which to listen to. See <code class="code"><span class="cons
 </tr></table>
 
 
-<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">?source:<a href="Libudev.Monitor.html#TYPEnetlink_source">netlink_source</a> -><br>       <a href="Libudev.Context.html#TYPEt">Libudev.Context.t</a> -> <a href="Libudev.Monitor.html#TYPEt">t</a></code></pre><div class="info ">
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">?source:<a href="Udev.Monitor.html#TYPEnetlink_source">netlink_source</a> -> <a href="Udev.Context.html#TYPEt">Udev.Context.t</a> -> <a href="Udev.Monitor.html#TYPEt">t</a></code></pre><div class="info ">
 Create a monitor by connecting to the kernel daemon through netlink.
 <p>
 
@@ -106,11 +106,11 @@ Create a monitor by connecting to the kernel daemon through netlink.
 <br>
 <h1 id="1_Filteringlisteningfordevices">Filtering &amp; listening for devices</h1><br>
 
-<pre><span id="VALset_filter"><span class="keyword">val</span> set_filter</span> : <code class="type"><a href="Libudev.Monitor.html#TYPEt">t</a> -> <a href="Libudev.Monitor.html#TYPEfilter">filter</a> list -> unit</code></pre><div class="info ">
+<pre><span id="VALset_filter"><span class="keyword">val</span> set_filter</span> : <code class="type"><a href="Udev.Monitor.html#TYPEt">t</a> -> <a href="Udev.Monitor.html#TYPEfilter">filter</a> list -> unit</code></pre><div class="info ">
 Filter the devices that are listened by a monitor.<br>
 </div>
 
-<pre><span id="VALstart"><span class="keyword">val</span> start</span> : <code class="type"><a href="Libudev.Monitor.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<pre><span id="VALstart"><span class="keyword">val</span> start</span> : <code class="type"><a href="Udev.Monitor.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
 Start a monitor. A monitor <code class="code">m</code> will not receive events until
       <code class="code"><span class="constructor">Monitor</span>.start m</code> is called. This function does nothing if called on an
       already started monitor.<br>
@@ -121,7 +121,7 @@ Start a monitor. A monitor <code class="code">m</code> will not receive events u
 See <code class="code"><span class="constructor">Monitor</span>.receive_device</code>.<br>
 </div>
 
-<pre><span id="VALreceive_device"><span class="keyword">val</span> receive_device</span> : <code class="type">?timeout:float -> <a href="Libudev.Monitor.html#TYPEt">t</a> -> <a href="Libudev.Device.html#TYPEt">Libudev.Device.t</a></code></pre><div class="info ">
+<pre><span id="VALreceive_device"><span class="keyword">val</span> receive_device</span> : <code class="type">?timeout:float -> <a href="Udev.Monitor.html#TYPEt">t</a> -> <a href="Udev.Device.html#TYPEt">Udev.Device.t</a></code></pre><div class="info ">
 Poll for a device event. <code class="code"><span class="constructor">Monitor</span>.receive_device ~timeout m</code> will block
       until a device event is received, or after <code class="code">timeout</code> seconds, in which case
       the <code class="code"><span class="constructor">Timeout</span></code> exception is raised. 
@@ -134,15 +134,15 @@ Poll for a device event. <code class="code"><span class="constructor">Monitor</s
 <br>
 <h1 id="1_Utilities">Utilities</h1><br>
 
-<pre><span id="VALcontext"><span class="keyword">val</span> context</span> : <code class="type"><a href="Libudev.Monitor.html#TYPEt">t</a> -> <a href="Libudev.Context.html#TYPEt">Libudev.Context.t</a></code></pre><div class="info ">
+<pre><span id="VALcontext"><span class="keyword">val</span> context</span> : <code class="type"><a href="Udev.Monitor.html#TYPEt">t</a> -> <a href="Udev.Context.html#TYPEt">Udev.Context.t</a></code></pre><div class="info ">
 The context to which a monitor is bound.<br>
 </div>
 
-<pre><span id="VALset_receive_buffer_size"><span class="keyword">val</span> set_receive_buffer_size</span> : <code class="type"><a href="Libudev.Monitor.html#TYPEt">t</a> -> int -> unit</code></pre><div class="info ">
+<pre><span id="VALset_receive_buffer_size"><span class="keyword">val</span> set_receive_buffer_size</span> : <code class="type"><a href="Udev.Monitor.html#TYPEt">t</a> -> int -> unit</code></pre><div class="info ">
 Set the receive buffer size, in bytes.<br>
 </div>
 
-<pre><span id="VALfd"><span class="keyword">val</span> fd</span> : <code class="type"><a href="Libudev.Monitor.html#TYPEt">t</a> -> Unix.file_descr</code></pre><div class="info ">
+<pre><span id="VALfd"><span class="keyword">val</span> fd</span> : <code class="type"><a href="Udev.Monitor.html#TYPEt">t</a> -> Unix.file_descr</code></pre><div class="info ">
 Return the file descriptor associated with the monitor.<br>
 </div>
 </body></html>

@@ -4,21 +4,21 @@
 <link rel="stylesheet" href="style.css" type="text/css">
 <meta content="text/html; charset=utf8" http-equiv="Content-Type">
 <link rel="Start" href="index.html">
-<link rel="previous" href="Libudev.Monitor.html">
-<link rel="Up" href="Libudev.html">
+<link rel="previous" href="Udev.Monitor.html">
+<link rel="Up" href="Udev.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
 <link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
-<link title="Libudev" rel="Chapter" href="Libudev.html"><title>Libudev.Enumerate</title>
+<link title="Udev" rel="Chapter" href="Udev.html"><title>Udev.Enumerate</title>
 </head>
 <body>
-<div class="navbar"><a class="pre" href="Libudev.Monitor.html" title="Libudev.Monitor">Previous</a>
-&nbsp;<a class="up" href="Libudev.html" title="Libudev">Up</a>
+<div class="navbar"><a class="pre" href="Udev.Monitor.html" title="Udev.Monitor">Previous</a>
+&nbsp;<a class="up" href="Udev.html" title="Udev">Up</a>
 &nbsp;</div>
-<h1>Module <a href="type_Libudev.Enumerate.html">Libudev.Enumerate</a></h1>
+<h1>Module <a href="type_Udev.Enumerate.html">Udev.Enumerate</a></h1>
 
-<pre><span class="keyword">module</span> Enumerate: <code class="code"><span class="keyword">sig</span></code> <a href="Libudev.Enumerate.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+<pre><span class="keyword">module</span> Enumerate: <code class="code"><span class="keyword">sig</span></code> <a href="Udev.Enumerate.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 Device enumeration and filtering.<br>
 </div>
 <hr width="100%">
@@ -116,7 +116,7 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
 <td align="left" valign="top" >
 <code><span class="keyword pipe">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTfilter.Parent"><span class="constructor">Parent</span></span> <span class="keyword">of</span> <code class="type"><a href="Libudev.Device.html#TYPEt">Libudev.Device.t</a></code></code></td></tr>
+<code><span id="TYPEELTfilter.Parent"><span class="constructor">Parent</span></span> <span class="keyword">of</span> <code class="type"><a href="Udev.Device.html#TYPEt">Udev.Device.t</a></code></code></td></tr>
 <tr>
 <td class="typefieldcomment" align="left" valign="top" colspan="2"><div class="info ">
 <code class="code"><span class="constructor">Parent</span> parent</code> matches devices on the subtree of the given <code class="code">parent</code>
@@ -145,11 +145,11 @@ The devices enumerated using <code class="code"><span class="constructor">Enumer
 </tr></table>
 
 
-<pre><span id="VALdevices"><span class="keyword">val</span> devices</span> : <code class="type"><a href="Libudev.Context.html#TYPEt">Libudev.Context.t</a> -> <a href="Libudev.Enumerate.html#TYPEfilter">filter</a> list -> <a href="Libudev.Device.html#TYPEt">Libudev.Device.t</a> list</code></pre><div class="info ">
+<pre><span id="VALdevices"><span class="keyword">val</span> devices</span> : <code class="type"><a href="Udev.Context.html#TYPEt">Udev.Context.t</a> -> <a href="Udev.Enumerate.html#TYPEfilter">filter</a> list -> <a href="Udev.Device.html#TYPEt">Udev.Device.t</a> list</code></pre><div class="info ">
 List the devices matching the given filter list.<br>
 </div>
 
-<pre><span id="VALsubsystems"><span class="keyword">val</span> subsystems</span> : <code class="type"><a href="Libudev.Context.html#TYPEt">Libudev.Context.t</a> -> <a href="Libudev.Enumerate.html#TYPEfilter">filter</a> list -> <a href="Libudev.Device.html#TYPEt">Libudev.Device.t</a> list</code></pre><div class="info ">
+<pre><span id="VALsubsystems"><span class="keyword">val</span> subsystems</span> : <code class="type"><a href="Udev.Context.html#TYPEt">Udev.Context.t</a> -> <a href="Udev.Enumerate.html#TYPEfilter">filter</a> list -> <a href="Udev.Device.html#TYPEt">Udev.Device.t</a> list</code></pre><div class="info ">
 List the subsystems matching the given filter list.<br>
 </div>
 </body></html>
